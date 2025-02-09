@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://vm2db1miokbv"]
+
+[ext_resource type="StyleBox" uid="uid://c6gq043r7t5e" path="res://style.tres" id="1_oft0j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxpv1"]
+bg_color = Color(0.144531, 0.144531, 0.144531, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
+[resource]
+Button/styles/focus = ExtResource("1_oft0j")
+Button/styles/hover = SubResource("StyleBoxFlat_vxpv1")
+Button/styles/hover_pressed = ExtResource("1_oft0j")
+Button/styles/normal = ExtResource("1_oft0j")
+Button/styles/pressed = ExtResource("1_oft0j")

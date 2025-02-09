@@ -1,0 +1,242 @@
+[gd_scene load_steps=31 format=3 uid="uid://j5ba2l1qxcxx"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_xfjrq"]
+[ext_resource type="Script" path="res://net.gd" id="2_01a1d"]
+[ext_resource type="PackedScene" uid="uid://b37js20mymr0d" path="res://bullet.tscn" id="2_dxmhv"]
+[ext_resource type="Texture2D" uid="uid://dghlyc7nqc6oo" path="res://ufo.png" id="3_e82bm"]
+[ext_resource type="PackedScene" uid="uid://doj5yr16e64va" path="res://plane.tscn" id="4_bojhr"]
+[ext_resource type="Texture2D" uid="uid://c7k6pd5h2f77l" path="res://net.png" id="5_hltlx"]
+[ext_resource type="AudioStream" uid="uid://dal1i4gwxesq1" path="res://421704__bolkmar__sfx-laser-shoot-02.wav" id="6_u2ebj"]
+[ext_resource type="Texture2D" uid="uid://bjrmor37pw5ep" path="res://background.png" id="7_3ycmj"]
+[ext_resource type="Script" path="res://background.gd" id="7_h67rx"]
+[ext_resource type="Texture2D" uid="uid://b2t7efiijgp8v" path="res://Sprites.png" id="7_n6auj"]
+[ext_resource type="AudioStream" uid="uid://nu7m0wx5kgsf" path="res://322491__liamg_sfx__explosion-7a.wav" id="8_j08hv"]
+[ext_resource type="Script" path="res://plane_spawner.gd" id="9_tr2fc"]
+[ext_resource type="Script" path="res://death_screen.gd" id="10_ap5n8"]
+[ext_resource type="Theme" uid="uid://vm2db1miokbv" path="res://theme.tres" id="11_v3apr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7a60"]
+atlas = ExtResource("3_e82bm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgbih"]
+atlas = ExtResource("3_e82bm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5fi2r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7a60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgbih")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n2uep"]
+radius = 24.52
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4mg1r"]
+radius = 160.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dmag"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_munhk"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rik18"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70qw5"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82hm3"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcvrp"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvp7r"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lul2o"]
+atlas = ExtResource("7_n6auj")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j1vvx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dmag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_munhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rik18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70qw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82hm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcvrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvp7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lul2o")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a06j1"]
+font_size = 64
+outline_size = 10
+outline_color = Color(1, 0.513726, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_co4vm"]
+font_size = 32
+outline_size = 5
+outline_color = Color(1, 0.515625, 0, 1)
+
+[node name="Scene" type="Node2D"]
+
+[node name="Net" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
+texture_repeat = 2
+color = Color(1, 0.03125, 0.03125, 1)
+texture = ExtResource("5_hltlx")
+script = ExtResource("2_01a1d")
+
+[node name="StartTimer" type="Timer" parent="Net"]
+wait_time = 0.3
+autostart = true
+
+[node name="Line2D" type="Line2D" parent="Net"]
+closed = true
+width = 3.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="Net"]
+collision_layer = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Net/Area2D"]
+
+[node name="Player" type="Area2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(-40, 220)
+collision_mask = 8
+script = ExtResource("1_xfjrq")
+bullet_scene = ExtResource("2_dxmhv")
+
+[node name="Ufo" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(1.6, 1.6)
+sprite_frames = SubResource("SpriteFrames_5fi2r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_n2uep")
+debug_color = Color(0.399219, 0.7, 0, 0.42)
+
+[node name="NetTarget" type="Area2D" parent="Player"]
+unique_name_in_owner = true
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/NetTarget"]
+shape = SubResource("CircleShape2D_4mg1r")
+
+[node name="Cooldown" type="Timer" parent="Player"]
+wait_time = 0.5
+one_shot = true
+
+[node name="LaserShootSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("6_u2ebj")
+
+[node name="Explosion" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_j1vvx")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("8_j08hv")
+pitch_scale = 0.6
+area_mask = 0
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -5
+texture_repeat = 2
+position = Vector2(620, 240)
+texture = ExtResource("7_3ycmj")
+script = ExtResource("7_h67rx")
+
+[node name="PlaneSpawner" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+script = ExtResource("9_tr2fc")
+plane_scene = ExtResource("4_bojhr")
+
+[node name="DeathScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+script = ExtResource("10_ap5n8")
+
+[node name="Label" type="Label" parent="DeathScreen"]
+offset_left = 160.0
+offset_top = 80.0
+offset_right = 480.0
+offset_bottom = 168.0
+text = "You died!"
+label_settings = SubResource("LabelSettings_a06j1")
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="DeathScreen"]
+offset_left = 260.0
+offset_top = 160.0
+offset_right = 381.0
+offset_bottom = 205.0
+size_flags_horizontal = 4
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_co4vm")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="DeathScreen"]
+offset_left = 260.0
+offset_top = 220.0
+offset_right = 380.0
+offset_bottom = 251.0
+theme = ExtResource("11_v3apr")
+text = "Restart"
+
+[connection signal="timeout" from="Net/StartTimer" to="Net" method="_on_start_timer_timeout"]
+[connection signal="timeout" from="Player/Cooldown" to="Player" method="_on_cooldown_timeout"]
+[connection signal="animation_finished" from="Player/Explosion" to="Player" method="_on_explosion_animation_finished"]
+[connection signal="timeout" from="PlaneSpawner" to="PlaneSpawner" method="_on_timeout"]
+[connection signal="pressed" from="DeathScreen/Button" to="DeathScreen" method="_on_button_pressed"]

@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://doj5yr16e64va"]
+
+[ext_resource type="Texture2D" uid="uid://dt52w7e7dgdy2" path="res://plane.png" id="1_nivav"]
+[ext_resource type="Script" path="res://plane.gd" id="1_yytr5"]
+[ext_resource type="Texture2D" uid="uid://cqpkhlciqimq5" path="res://explosion.png" id="4_bxe2w"]
+[ext_resource type="AudioStream" uid="uid://nu7m0wx5kgsf" path="res://322491__liamg_sfx__explosion-7a.wav" id="5_a8c18"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2fau"]
+size = Vector2(24, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdk61"]
+atlas = ExtResource("4_bxe2w")
+region = Rect2(0, 0, 23, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4foo"]
+atlas = ExtResource("4_bxe2w")
+region = Rect2(23, 0, 23, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w257e"]
+atlas = ExtResource("4_bxe2w")
+region = Rect2(46, 0, 23, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le2qt"]
+atlas = ExtResource("4_bxe2w")
+region = Rect2(69, 0, 23, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rhs6l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdk61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4foo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w257e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le2qt")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Plane" type="Area2D" groups=["planes"]]
+z_index = 2
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_yytr5")
+
+[node name="Plane" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.57079
+scale = Vector2(1.31517, 1.31517)
+texture = ExtResource("1_nivav")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h2fau")
+
+[node name="RemoveFromNet" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="ReadyTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Explosion" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_rhs6l")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_a8c18")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="RemoveFromNet" to="." method="_on_remove_from_net_timeout"]
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
+[connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]
+[connection signal="finished" from="ExplosionSound" to="." method="_on_explosion_sound_finished"]

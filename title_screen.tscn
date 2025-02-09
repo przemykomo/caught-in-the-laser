@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://3vlncs18xym3"]
+
+[ext_resource type="Texture2D" uid="uid://vkwpyytllwm" path="res://titlescreen.png" id="1_biwfp"]
+[ext_resource type="Script" path="res://title_screen.gd" id="1_u2ehc"]
+[ext_resource type="Theme" uid="uid://vm2db1miokbv" path="res://theme.tres" id="2_kc316"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u2ehc")
+
+[node name="Titlescreen" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 620.0
+offset_bottom = 480.0
+texture = ExtResource("1_biwfp")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 240.0
+offset_right = 380.0
+offset_bottom = 280.0
+theme = ExtResource("2_kc316")
+text = "PLAY"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
