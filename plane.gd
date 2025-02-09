@@ -52,7 +52,7 @@ func _on_remove_from_net_timeout() -> void:
 	for i in range(net.planes.size()):
 		if net.planes[i] == self:
 			my_index = i
-		elif net.planes.size() <= 3:
+		elif net.planes.size() <= 2:
 			net.planes[i].net_connected = false
 			net.planes[i].ready_for_net = false
 	
@@ -60,7 +60,7 @@ func _on_remove_from_net_timeout() -> void:
 		net.planes.remove_at(my_index)
 		vertices.remove_at(my_index)
 	
-	if net.planes.size() < 3:
+	if net.planes.size() < 2:
 		net.planes.clear()
 		vertices.clear()
 	net.set_polygon(vertices)

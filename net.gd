@@ -31,29 +31,29 @@ func _physics_process(delta: float) -> void:
 
 func sort_clockwise(a, b):
 	return (a.position - %Player.position).angle() < (b.position - %Player.position).angle()
-			
+
 func _on_start_timer_timeout() -> void:
 	var candidates: Array[Area2D] = %NetTarget.get_overlapping_areas().filter(func(e): return !e.removed_from_net)
 	if candidates.size() < 4:
 		return
-	
+
 	if planes.is_empty():
-		var has_top: bool = false
-		var has_bottom: bool = false
-		var has_left: bool = false
-		var has_right: bool = false
-		for plane in candidates:
-			if !has_top && plane.position.y < %Player.position.y:
-				has_top = true
-			if !has_bottom && plane.position.y > %Player.position.y:
-				has_bottom = true
-			if !has_left && plane.position.x < %Player.position.x:
-				has_left = true
-			if !has_right && plane.position.x > %Player.position.x:
-				has_right = true
-		
-		if !has_top || !has_bottom || !has_left || !has_right:
-			return
+		#var has_top: bool = false
+		#var has_bottom: bool = false
+		#var has_left: bool = false
+		#var has_right: bool = false
+		#for plane in candidates:
+			#if !has_top && plane.position.y < %Player.position.y:
+				#has_top = true
+			#if !has_bottom && plane.position.y > %Player.position.y:
+				#has_bottom = true
+			#if !has_left && plane.position.x < %Player.position.x:
+				#has_left = true
+			#if !has_right && plane.position.x > %Player.position.x:
+				#has_right = true
+		#
+		#if !has_top || !has_bottom || !has_left || !has_right:
+			#return
 		
 		var vertices: PackedVector2Array
 		

@@ -33,6 +33,7 @@ func _physics_process(delta: float) -> void:
 	
 	if has_overlapping_areas():
 		health -= int(100 * delta)
+		%HealthRect.size.x = health / 1000.0 * 150
 		if health < 0 && !dead:
 			dead = true
 			$Explosion.play()
