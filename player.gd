@@ -19,6 +19,9 @@ func _input(event):
 		$Ufo.frame = 1
 		$Cooldown.start()
 		$LaserShootSound.play()
+		
+func _process(delta: float) -> void:
+	$Ufo.rotate(4 * delta)
 
 func _physics_process(delta: float) -> void:
 	if just_started:
@@ -27,18 +30,21 @@ func _physics_process(delta: float) -> void:
 			just_started = false
 			can_attack = true
 			%PlaneSpawner.start()
-	var velocity = Input.get_vector("left", "right", "top", "down")
-	position += velocity * 100 * delta
-	position = position.clamp(Vector2(20, 20), Vector2(600, 460))
+			%ICBMSpawner.start()
+			%DumbICBMSpawner.start()
+	if !dead:
+		var velocity = Input.get_vector("left", "right", "top", "down")
+		position += velocity * 100 * delta
+		position = position.clamp(Vector2(20, 20), Vector2(600, 460))
 	
 	if has_overlapping_areas():
 		health -= int(100 * delta)
-		%HealthRect.size.x = health / 1000.0 * 150
 		if health < 0 && !dead:
 			dead = true
 			$Explosion.play()
 			$ExplosionSound.play()
 			$Ufo.visible = false
+	%HealthRect.size.x = health / 1000.0 * 150
 	$Ufo.modulate.g = health / 2000.0 + 0.5
 	$Ufo.modulate.b = health / 2000.0 + 0.5
 	$Ufo.position.x = (1000 - health) / 500.0 * sin(Time.get_ticks_msec() / 100.0)

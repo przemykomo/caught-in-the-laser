@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://j5ba2l1qxcxx"]
+[gd_scene load_steps=33 format=3 uid="uid://j5ba2l1qxcxx"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_xfjrq"]
 [ext_resource type="Script" path="res://net.gd" id="2_01a1d"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://plane_spawner.gd" id="9_tr2fc"]
 [ext_resource type="Script" path="res://death_screen.gd" id="10_ap5n8"]
 [ext_resource type="Theme" uid="uid://vm2db1miokbv" path="res://theme.tres" id="11_v3apr"]
+[ext_resource type="Script" path="res://icbm_spawner.gd" id="13_amwq1"]
+[ext_resource type="PackedScene" uid="uid://cn0ixqjqcttge" path="res://icbm.tscn" id="15_xvovm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t7a60"]
 atlas = ExtResource("3_e82bm")
@@ -201,6 +203,19 @@ wait_time = 2.0
 script = ExtResource("9_tr2fc")
 plane_scene = ExtResource("4_bojhr")
 
+[node name="ICBMSpawner" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 20.0
+script = ExtResource("13_amwq1")
+icbm_scene = ExtResource("15_xvovm")
+
+[node name="DumbICBMSpawner" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 7.0
+script = ExtResource("13_amwq1")
+icbm_scene = ExtResource("15_xvovm")
+is_dumb = true
+
 [node name="DeathScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 process_mode = 3
@@ -236,6 +251,7 @@ theme = ExtResource("11_v3apr")
 text = "Restart"
 
 [node name="ColorRect" type="ColorRect" parent="."]
+z_index = 10
 offset_left = 440.0
 offset_top = 440.0
 offset_right = 600.0
@@ -243,6 +259,8 @@ offset_bottom = 460.0
 
 [node name="HealthRect" type="ColorRect" parent="ColorRect"]
 unique_name_in_owner = true
+z_index = 10
+layout_mode = 0
 offset_left = 5.0
 offset_top = 3.0
 offset_right = 155.0
@@ -253,4 +271,6 @@ color = Color(1, 0, 0, 1)
 [connection signal="timeout" from="Player/Cooldown" to="Player" method="_on_cooldown_timeout"]
 [connection signal="animation_finished" from="Player/Explosion" to="Player" method="_on_explosion_animation_finished"]
 [connection signal="timeout" from="PlaneSpawner" to="PlaneSpawner" method="_on_timeout"]
+[connection signal="timeout" from="ICBMSpawner" to="ICBMSpawner" method="_on_timeout"]
+[connection signal="timeout" from="DumbICBMSpawner" to="DumbICBMSpawner" method="_on_timeout"]
 [connection signal="pressed" from="DeathScreen/Button" to="DeathScreen" method="_on_button_pressed"]
